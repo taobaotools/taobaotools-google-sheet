@@ -24,15 +24,16 @@ function convert() {
       if (cell.getFormula().indexOf("HYPERLINK") < 0) {
         // No HYPERLINK formula
         if (isTaobaoURL(label)) {
-          cell.setValue(convertURL(label)); 
+          var converted = convertURL(label);
+          cell.setValue('=HYPERLINK("' + converted + '", "' + converted + '")'); 
         }
       } else {
         // Is a HYPERLINK, get the URL value
         var url = cell.getFormula().match(/=hyperlink\("([^"]+)"/i)[1];
         if (isTaobaoURL(url)) {
           // Build new HYPERLINK based on converted link
-          url = convertURL(url);
-          cell.setValue('=HYPERLINK("' + url + '", "' + label + '")');
+          var converted = convertURL(url);
+          cell.setValue('=HYPERLINK("' + converted + '", "' + (url == label ? converted : label) + '")');
         }
       }
     }

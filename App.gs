@@ -1,9 +1,5 @@
 var s = SpreadsheetApp.getActive();
 
-function onInstall(e) {
-  onOpen(e);
-}
-
 function onOpen(e) {
   var menuItems = [
     {name: 'Convert', functionName: 'convert'}
